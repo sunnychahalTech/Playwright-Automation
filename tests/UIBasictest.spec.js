@@ -1,18 +1,39 @@
-const {test} = require('@playwright/test');
+const {test, expect} = require('@playwright/test');
 
 
-test('First Playwright test', async ({browser})=>
+test.only('First Playwright test', async ({browser})=>
 {
    const context = await browser.newContext();
    const page = await context.newPage();
-   await page.goto("https://sso.teachable.com/secure/9521/identity/sign_up/otp?wizard_id=dGn4iboGJgMIQZbiQ4r0-ZNcBT94nqXJ27rYhCCg6v7nNQw761ddZd4oXM6wjVYrsSsoI8bm834BFp3rW2EaXg");
+   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
 
+   console.log(await page.title());
+
+   //css 
+
+   const userName =  page.locator("#username");
+
+
+   await userName.fill("SunnyChahal");
+
+   await page.locator("[name = password]").fill("learning");
+
+   await page.locator("#signInBtn").click();
+
+
+   console.log(await page.locator(".alert.alert-danger.col-md-12").textContent());
 
 
 });
 
 
-test.only('Page Playwright test', async({page})=>
+test('Page Playwright test', async({page})=>
 {
     await page.goto("https://google.com");
+
+
+    console.log(await page.title());
+
+
+    await expect(page).toHaveTitle("Google");
 });
