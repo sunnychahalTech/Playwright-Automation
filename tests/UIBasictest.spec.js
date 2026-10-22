@@ -1,7 +1,8 @@
 const {test, expect} = require('@playwright/test');
+const { promises } = require('dns');
 
 
-test.only('First Playwright test', async ({browser})=>
+test('First Playwright test', async ({browser})=>
 {
    const context = await browser.newContext();
    const page = await context.newPage();
@@ -39,7 +40,7 @@ test('Page Playwright test', async({page})=>
 });
 
 
-test.only('Complete login', async({page})=>
+test('Complete login', async({page})=>
 {
    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
 
@@ -67,3 +68,39 @@ test.only('Complete login', async({page})=>
 
 }
 );
+
+
+
+test.only('@Child Windows handl', async({browser})=>
+{
+    const context  = await browser.newContext();
+    const page = await context.newPage();
+
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+
+    const userName = page.locator("#username");
+    const documentLink =  page.locator("[href*= 'documents-request']");
+     
+    const [newPage] = await Promise.all([
+         context.waitForEvent('page'),
+         documentLink.click(),
+    ])
+
+    // await expect (newPage.locator(".inner-box")).toContainText("DOCUMENTS REQUEST");
+
+    const text =  await newPage.locator(".im-para.red").textContent();
+
+    const arrayText = text.split("@");
+
+    const domain = arrayText[1].split(" ")[0];
+
+
+    await userName.fill(domain);
+
+    console.log(await userName.inputValue());
+
+
+
+
+
+});
