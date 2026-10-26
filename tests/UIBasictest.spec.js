@@ -71,7 +71,7 @@ test('Complete login', async({page})=>
 
 
 
-test.only('@Child Windows handl', async({browser})=>
+test('@Child Windows handl', async({browser})=>
 {
     const context  = await browser.newContext();
     const page = await context.newPage();
