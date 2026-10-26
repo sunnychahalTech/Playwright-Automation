@@ -38,7 +38,7 @@ test('@register', async({page})=>
 });
 
 
-test.only('@Web client App Login', async({browser})=>
+test('@Web client App Login', async({browser})=>
 {
     const context = await browser.newContext();
     const page = await context.newPage();
