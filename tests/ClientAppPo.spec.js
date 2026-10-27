@@ -38,17 +38,64 @@ test('@register', async({page})=>
 });
 
 
-test('@Web client App Login', async({browser})=>
+test.only('@Web client App Login', async({browser})=>
 {
     const context = await browser.newContext();
     const page = await context.newPage();
+    const productName = 'ZARA COAT 3';
 
     await page.goto("https://rahulshettyacademy.com/client");
     await page.locator("#userEmail").fill("sunnychaha555@gmail.com");
     await page.locator("#userPassword").fill("sunnyChahal@1");
     await page.locator("[value='Login']").click();
-    
-    
+    const products = page.locator(".card-body");
+    await page.locator(".card-body b").first().waitFor();
+    const list = await page.locator(".card-body b").allTextContents();
+    const count = await products.count();
 
+
+    for (let i = 0; i < count; i++)
+    {
+        if (await products.nth(i).locator("b").textContent() === productName)
+        {
+            await products.nth(i).locator("text = Add To Cart").click();
+            break;
+        }
+    }
+
+
+    await page.getByRole("listitem").getByRole("button", {name :"Cart"}).click();
+    //await page.waitForLoadState("networkidle");
+    //await page.waitForTimeout(2000);
+
+    await expect(page.getByText("ZARA COAT 3")).toBeVisible();
+    
+    await page.getByRole("button", {name: "Checkout"}).click();
+
+    await page.getByPlaceholder("Select Country").pressSequentially("ind", { delay: 150 });
+
+    const dropDown = page.locator(".ta-results");
+    await dropDown.waitFor({ state: "visible" });
+
+    await page.getByRole("button",{name :"India"}).nth(1).click();
+
+    await page.getByText("PLACE ORDER").click();
+
+    await expect(page.getByText("Thankyou for the order.")).toBeVisible();
+
+
+});
+
+
+
+
+test('Playwright Special Locators', async({page})=>
+{
+    await page.goto("https://rahulshettyacademy.com/angularpractice/");
+    await page.getByLabel("Check me out if you Love IceCreams!").click();
+    await page.getByPlaceholder("Password").fill("abc123");
+    await page.getByRole("button", {name: 'Submit'}).click();
+
+    await expect(page.getByText("Success! The Form has been submitted successfully!.")).toBeVisible();
 
 });

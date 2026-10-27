@@ -40,7 +40,7 @@ test('Page Playwright test', async({page})=>
 });
 
 
-test.only('Complete login', async({page})=>
+test('Complete login', async({page})=>
 {
    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
 
