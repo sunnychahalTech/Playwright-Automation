@@ -8,15 +8,18 @@ test.beforeAll(async() =>
 {
     const apiContext = await request.newContext();
     const apiUtils = new APiUtils(apiContext, loginPayload);
-    response = apiUtils.createOrder(orderPayload);
+    response = await apiUtils.createOrder(orderPayload);
 
 });
 
 test('@API Place The Order', async ({page}) => {
-    await page.addInitScript(value =>
-    {
-        window.localStorage.setItem('token' ,value);
+    await page.addInitScript((token) => {
+        window.localStorage.setItem('token', token);
     }, response.token);
+
+    await page.goto("https://rahulshettyacademy.com/client");
+
+    await page.locator("button[routerlink*='myorders']").click();
 
     await page.goto("https://rahulshettyacademy.com/client");
     await page.locator("button[routerlink*='myorders']").click();
