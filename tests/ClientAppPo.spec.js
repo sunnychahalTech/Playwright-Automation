@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 const { POManager} = require('../pageobject/POManager');
 
 
-test.only('Client App Login', async({browser})=>
+test('Client App Login PO', async({browser})=>
 {
     const context = await browser.newContext();
     const page = await context.newPage();
