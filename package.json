@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "regressionTest": "npx playwright test",
+    "regressionTest": "npx playwright test --workers=1",
     "ApiTest": "npx playwright test --grep @API"
   },
   "repository": {
