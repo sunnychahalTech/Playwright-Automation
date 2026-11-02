@@ -59,7 +59,7 @@ test('Client App Login PO', async ({ browser }) => {
 
 });
 
-customtest.only('client App', async ({page, testOrderData})=>
+customtest('client App', async ({page, testOrderData})=>
 {
     const poManager = new POManager(page);
 
