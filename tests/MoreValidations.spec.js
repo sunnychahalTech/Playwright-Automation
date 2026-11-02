@@ -33,7 +33,7 @@ test("Screenshot", async({page}) =>
 
 });
 
-test.only("Valid", async({page}) =>
+test("Valid", async({page}) =>
 {
     await page.goto("https://flightaware.com");
     //create ss first 
