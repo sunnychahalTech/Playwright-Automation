@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test.only('More Validations', async ({ page }) => {
+test('More Validations', async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     // await page.goto("https://chatgpt.com/c/6ae5d18d-2d2c-83e8-be6f-091192ddadd9");
     // await page.goBack();
@@ -18,4 +18,24 @@ test.only('More Validations', async ({ page }) => {
 
 
 
+});
+
+
+test("Screenshot", async({page}) =>
+{
+    await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
+    await expect(page.locator("#displayed-text")).toBeVisible();
+    await page.locator("#displayed-text").screenshot({path: 'screnshot.png'});
+    await page.locator("#hide-textbox").click();
+    await expect(page.locator("#displayed-text")).toBeHidden();
+    await page.screenshot({path: "screenshot1.png"});
+
+
+});
+
+test.only("Valid", async({page}) =>
+{
+    await page.goto("https://flightaware.com");
+    //create ss first 
+    expect(await page.screenshot()).toMatchSnapshot('landing.png');
 });
