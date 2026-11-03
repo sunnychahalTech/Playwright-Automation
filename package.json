@@ -12,6 +12,7 @@
     "url": "git+https://github.com/sunnychahall/Playwright-.git"
   },
   "dependencies": {
+    "@cucumber/cucumber": "^13.3.0",
     "exceljs": "^4.4.0"
   },
   "keywords": [],
